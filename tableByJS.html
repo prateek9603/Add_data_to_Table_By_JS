@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table By JS</title>
+</head>
+<style>
+    p{
+        border:3px solid #000;
+        padding: 10px;
+        min-width: 10%;
+        max-width: 100%;
+        display: inline-block;
+        
+    }
+    th , tr , td{
+        border: 3px solid #000;
+        padding: 8px;
+        text-align : center ;
+    }
+    
+</style>
+<body>
+    <div class="wrapper">
+        <input id="name" type="text" placeholder="Enter Your Name">
+        <input id="age"  type="number" placeholder="Enter Your Age">
+
+        <button id="data">Add data</button>
+        <button id="printTable">Print Table</button>
+    </div>
+
+    <div id="data-display">
+
+    </div>
+
+    <table id="table_entries">
+        
+        <tr> <th>S.No</th> <th>NAME</th> <th>AGE</th> </tr>
+
+    </table>
+
+
+
+    <script>
+        let names = document.querySelector("#name");
+        let age = document.querySelector("#age");
+        let addData = document.querySelector("#data");
+        let printTable = document.querySelector("#printTable");
+
+        
+        names.focus()
+        
+        let table_entries = document.querySelector("#table_entries")
+        table_entries.style.display = "none";
+
+
+        addData.onclick = () => {
+            if(names.value.length && age.value.length > 0 ){
+                // console.log("Name: " + name.value);
+                // console.log("Age : " + age.value);
+
+                let namedata = document.createElement("p");
+                namedata.innerHTML = names.value ; 
+                // namedata.style.border = "5px solid #000"
+                // namedata.style.padding = "10px"
+                // namedata.style.minWidth = "20px"
+                // console.log(namedata)
+
+
+                let agedata = document.createElement("p");
+                agedata.innerHTML = age.value;
+                // agedata.style.border = "5px solid #000"
+                // agedata.style.padding = "10px"
+                // agedata.style.minWidth = "20px"
+                // console.log(agedata)
+
+                document.querySelector("#data-display").appendChild(namedata);
+                document.querySelector("#data-display").appendChild(agedata);
+
+                document.querySelector("#data-display").appendChild(document.createElement("br"))
+
+                names.value = ""
+                age.value = ""
+                names.focus();
+            }
+        }
+
+
+        let number = 1;
+
+        printTable.onclick = () => {
+            table_entries.style.display = "block";
+            document.querySelector("#data-display").style.display = "none" ; 
+            
+            let entries = document.querySelectorAll("p");
+            for(let i = 0 ; i< entries.length ; i++ ){
+                let serial = document.createElement("td");
+                let name_data = document.createElement("td");
+                let age_data = document.createElement("td");
+
+                name_data.innerHTML = entries[i].innerHTML;
+                i += 1 ; 
+                age_data.innerHTML = entries[i].innerHTML;
+                serial.innerHTML = number;
+                
+
+                
+                for(let k = 0 ; k < 3 ; k++){
+                    let table_row = document.createElement("tr");
+                    table_row.appendChild(serial);
+                    table_row.appendChild(name_data);
+                    table_row.appendChild(age_data);
+
+                    document.querySelector("table").appendChild(table_row);
+                }
+                number += 1;
+            }
+        }
+
+
+
+    </script>
+
+</body>
+</html>
